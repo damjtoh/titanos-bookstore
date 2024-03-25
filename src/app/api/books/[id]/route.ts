@@ -12,7 +12,7 @@ export async function DELETE(request: Request, params: Params) {
     return Response.json({ error: "Invalid ID" }, { status: 400 });
   }
   await bookService.deleteById(id);
-  return Response.json({ id });
+  return Response.json({ id }, { status: 204 });
 }
 
 export async function PUT(request: Request, params: Params) {
