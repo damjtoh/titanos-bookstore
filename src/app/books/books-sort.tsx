@@ -15,8 +15,8 @@ type Props = {
 
 export default function BooksSort({ value, onChange }: Props) {
   return (
-    <div className="flex items-center space-x-2">
-      <label>Sort by: </label>
+    <label className="flex items-center space-x-2">
+      Sort by:
       <Select value={value} onValueChange={onChange}>
         <SelectTrigger className="w-[180px]">
           <SelectValue />
@@ -29,6 +29,6 @@ export default function BooksSort({ value, onChange }: Props) {
           ))}
         </SelectContent>
       </Select>
-    </div>
+    </label>
   );
 }

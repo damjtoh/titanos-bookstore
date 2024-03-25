@@ -1,4 +1,4 @@
-import { AddEditBookSchema } from "~/app/books/add/schemas";
+import { AddBookSchema } from "~/app/books/add/schemas";
 import bookService from "~/server/book-service";
 
 type Params = {
@@ -22,7 +22,7 @@ export async function PUT(request: Request, params: Params) {
     return Response.json({ error: "Invalid ID" }, { status: 400 });
   }
   const body: unknown = await request.json();
-  const book = AddEditBookSchema.safeParse(body);
+  const book = AddBookSchema.safeParse(body);
   if (!book.success) {
     return Response.json({ errors: book.error.errors }, { status: 400 });
   }

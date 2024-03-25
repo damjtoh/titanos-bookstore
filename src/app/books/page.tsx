@@ -8,19 +8,22 @@ import { ROUTES } from "~/lib/constants";
 import BookSuccessMessage from "./book-success-message";
 import PageTitle from "~/components/ui/page-title";
 import { Plus } from "lucide-react";
+import { Suspense } from "react";
 
 type Props = {
   searchParams: Record<string, string>;
 };
 
-export default async function HomePage({ searchParams }: Props) {
+export default async function BooksPage({ searchParams }: Props) {
   const filters = decodeURLSearchParamsToState(
     new URLSearchParams(searchParams),
   );
   const booksList = await bookService.list(filters);
   return (
     <main className="flex flex-col items-center space-y-4">
-      <BookSuccessMessage />
+      <Suspense>
+        <BookSuccessMessage />
+      </Suspense>
       <div className="flex w-full items-center justify-between">
         <PageTitle>Books inventory</PageTitle>
         <Button asChild size="lg" variant="success">
@@ -34,3 +37,5 @@ export default async function HomePage({ searchParams }: Props) {
     </main>
   );
 }
+
+export const dynamic = "force-dynamic";

@@ -24,7 +24,6 @@ export default function BookDeleteDialog({ book, open, onOpenChange }: Props) {
   const router = useRouter();
   const { execute, status } = useAction(deleteBook, {
     onSuccess: (data) => {
-      console.log("data: ", data);
       if (data.success) {
         router.replace(`${ROUTES.BOOKS_LIST}?success=BOOK_DELETED`);
         router.refresh();

@@ -10,7 +10,7 @@ export function decodeURLSearchParamsToState(params: URLSearchParams) {
   return { sort, page, search };
 }
 
-export function encodeStateToURLSearchParams(filters: Filters) {
+export function encodeStateToURLSearchParams(filters: Partial<Filters>) {
   const params = new URLSearchParams();
   if (filters.sort) {
     params.set("sort", filters.sort);

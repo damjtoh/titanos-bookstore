@@ -1,8 +1,8 @@
 import PageTitle from "~/components/ui/page-title";
-import BookForm from "../../book-form";
 import { ROUTES } from "~/lib/constants";
 import bookService from "~/server/book-service";
 import { notFound } from "next/navigation";
+import BookEditForm from "./book-edit-form";
 
 type Props = {
   params: {
@@ -15,11 +15,10 @@ export default async function EditBookPage({ params }: Props) {
   if (isNaN(id)) return notFound();
   const book = await bookService.getById(id);
   if (!book) return notFound();
-  console.log(" book :", book);
   return (
     <>
       <PageTitle backUrl={ROUTES.BOOKS_LIST}>Edit book</PageTitle>
-      <BookForm initialValues={book} />
+      <BookEditForm book={book} />
     </>
   );
 }

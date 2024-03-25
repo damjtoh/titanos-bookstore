@@ -2,15 +2,14 @@
 
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
-import { z } from "zod";
 import { ROUTES } from "~/lib/constants";
 import { action } from "~/lib/safe-action";
 import bookService from "~/server/book-service";
 import { PrismaClientKnownRequestError } from "@prisma/client/runtime/library";
 import { ServerError } from "~/lib/server-errors";
-import { AddEditBookSchema } from "./schemas";
+import { AddBookSchema } from "./schemas";
 
-export const addBook = action(AddEditBookSchema, async (book) => {
+export const addBook = action(AddBookSchema, async (book) => {
   try {
     await bookService.create(book);
   } catch (e) {

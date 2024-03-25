@@ -9,7 +9,6 @@ type Props = {
 };
 
 export default function BooksSearch({ initialValue = "", onSearch }: Props) {
-  console.log("initialValue: ", initialValue);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const handleSearch = () => {
     const query = inputRef.current?.value;

@@ -47,4 +47,6 @@ const bookService = {
   updateById,
 };
 
+export type BookService = typeof bookService;
+
 export default bookService;

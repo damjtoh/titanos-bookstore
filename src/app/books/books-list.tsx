@@ -3,7 +3,7 @@
 import BooksSearch from "./books-search";
 import BooksListPagination from "./books-list-pagination";
 import { useRouter } from "next/navigation";
-import { useOptimistic, useState, useTransition } from "react";
+import { useState, useTransition } from "react";
 import { encodeStateToURLSearchParams } from "./utils";
 import BooksSort from "./books-sort";
 import { type Sort, type Filters, type ListBooksResult } from "./schemas";
@@ -16,18 +16,20 @@ type Props = {
   filters: Filters;
 };
 
-export default function BooksList({ booksList, filters }: Props) {
-  const [optimisticFilters, setOptimisticFilters] =
-    useOptimistic<Filters>(filters);
+export default function BooksList({
+  booksList,
+  filters: initialFilters,
+}: Props) {
+  const [filters, setState] = useState<Filters>(initialFilters);
   const [isPending, startTransition] = useTransition();
   const [bookToBeDeleted, setBookToBeDeleted] = useState<Book | null>(null);
   const router = useRouter();
 
   const handleFilterChange = (filters: Partial<Filters>) => {
-    const nextFilters = { ...optimisticFilters, ...filters };
+    const nextFilters = { ...initialFilters, ...filters };
     const params = encodeStateToURLSearchParams(nextFilters);
     startTransition(() => {
-      setOptimisticFilters(nextFilters);
+      setState(nextFilters);
       router.push("?" + params.toString());
     });
   };
@@ -52,11 +54,8 @@ export default function BooksList({ booksList, filters }: Props) {
         book={bookToBeDeleted}
       />
       <div className="flex w-full flex-col justify-between space-y-4 md:flex-row md:space-y-0">
-        <BooksSearch
-          onSearch={handleSearch}
-          initialValue={optimisticFilters.search}
-        />
-        <BooksSort onChange={handleSortChange} value={optimisticFilters.sort} />
+        <BooksSearch onSearch={handleSearch} initialValue={filters.search} />
+        <BooksSort onChange={handleSortChange} value={filters.sort} />
       </div>
       {booksList.total === 0 ? (
         <div className="flex h-96 items-center justify-center">
@@ -84,7 +83,7 @@ export default function BooksList({ booksList, filters }: Props) {
           <BooksListPagination
             count={booksList.total}
             onPageChange={handlePageChange}
-            currentPage={optimisticFilters.page}
+            currentPage={filters.page}
           />
         </>
       )}
