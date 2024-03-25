@@ -64,7 +64,7 @@ npm run db-seed
 Next.js is biased towards a file-based routing system. And the co-location of files, making it easier to navigate the project structure.
 
 - **`app/`**: Contains the page components for the application, including the API routes.
-  - **`schemas.ts`**: Contains zod schemas and TypeScripts types for modeling and validating entities.
+  - **`schemas.ts`**: Contains Zod schemas and TypeScript types for modeling and validating entities.
   - **`actions.ts`**: Contains server side code that interacts with the database.
   - **`page.tsx`**: Contains the page components for the application.
 - **`components/`**: Reusable React UI components.
@@ -75,8 +75,7 @@ Next.js is biased towards a file-based routing system. And the co-location of fi
 
 ### Back-end
 
-We are taking advantage of the Next.js Server Side Rendering (SSR) capabilities to build the back-end of the application. And the newly introduced server actions to interact with the frontend. But we also included API handlers to xx the requisites of the project and also make them available to other frontend application such as mobile and desktop applications.
-The data is stored in a PostgreSQL database using Prisma as the ORM. The schema could be found in the `prisma/schema.prisma` file.
+We are taking advantage of the Next.js Server Side Rendering (SSR) capabilities to build the back-end of the application. We also included server actions to interact with the frontend and API handlers to meet the requirements of the project, making them available to other frontend applications such as mobile and desktop apps. The data is stored in a PostgreSQL database using Prisma as the ORM. The schema can be found in the `prisma/schema.prisma` file.
 
 ## Model schemas
 
@@ -157,7 +156,7 @@ type Book = {
 <details>
  <summary><code>PUT</code> <code><b>books/:id</b></code> <code>(update a book)</code></summary>
 
-##### Query parameters
+##### Search parameters
 
 > | name | type     | data type | description |
 > | ---- | -------- | --------- | ----------- |
@@ -174,10 +173,11 @@ type Book = {
 
 ##### Responses
 
-> | http code | content-type       | response              |
-> | --------- | ------------------ | --------------------- |
-> | `200`     | `application/json` | `Book`                |
-> | `400`     | `application/json` | `{errors: string[];}` |
+> | http code | content-type       | response                     |
+> | --------- | ------------------ | ---------------------------- |
+> | `200`     | `application/json` | `Book`                       |
+> | `400`     | `application/json` | `{errors: string[];}`        |
+> | `404`     | `application/json` | `{"error":"Book not found"}` |
 
 ##### Example cURL
 
@@ -192,7 +192,7 @@ type Book = {
 <details>
  <summary><code>DELETE</code> <code><b>books/:id</b></code> <code>(delete a book)</code></summary>
 
-##### Query parameters
+##### Search parameters
 
 > | name | type     | data type | description |
 > | ---- | -------- | --------- | ----------- |
@@ -200,9 +200,10 @@ type Book = {
 
 ##### Responses
 
-> | http code | content-type       | response       |
-> | --------- | ------------------ | -------------- |
-> | `204`     | `application/json` | `{id: number}` |
+> | http code | content-type       | response                     |
+> | --------- | ------------------ | ---------------------------- |
+> | `204`     | `application/json` | `{id: number}`               |
+> | `404`     | `application/json` | `{"error":"Book not found"}` |
 
 ##### Example cURL
 
@@ -217,9 +218,9 @@ type Book = {
 - [Next.js](https://nextjs.org): Used for server-side rendering and routing.
 - [Prisma](https://prisma.io): Used as the ORM for the application.
 - [Tailwind CSS](https://tailwindcss.com): Used for styling the application.
-- [Vitest](https://tailwindcss.com): Used for testing the application.
+- [Vitest](https://vitest.dev/): Used for testing the application.
 - [Zod](https://zod.dev/): Used for schema generation and validation.
-- [React hook Form](https://react-hook-form.com/): Used for form status management.
+- [React Hook Form](https://react-hook-form.com/): Used for form status management.
 - [Radix UI](https://www.radix-ui.com/): Used for building accessible UI components.
 
 ## Testing
